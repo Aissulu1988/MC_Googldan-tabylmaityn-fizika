@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Реакция және тежеу жолы · 1А станциясы</title>
+<style>
+:root{color-scheme:light dark;--glass:rgba(255,255,255,.9);--ink:#16202f;--mut:#4d5b75;--line:rgba(20,30,50,.16);--page:#0b1220;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--glass:rgba(17,24,39,.88);--ink:#eef3ff;--mut:#a8b5d1;--line:rgba(255,255,255,.14)}}
+:root[data-theme="dark"]{--glass:rgba(17,24,39,.88);--ink:#eef3ff;--mut:#a8b5d1;--line:rgba(255,255,255,.14)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html,body{height:100%;margin:0}
+body{background:var(--page);color:var(--ink);font-family:system-ui,"Segoe UI",Roboto,Arial,sans-serif;overflow:hidden}
+#app{height:100%;display:grid;grid-template-columns:minmax(0,1fr) minmax(330px,410px)}
+@media(max-width:860px){#app{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) minmax(0,48%)}}
+#stage{position:relative;min-height:0;overflow:hidden;touch-action:none;background:#0b1220}
+#stage canvas{display:block;width:100%;height:100%}
+#panel{background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-left:1px solid var(--line);padding:14px 16px 24px;overflow:auto}
+.ttl{display:flex;gap:12px;align-items:center;margin-bottom:6px}
+.code{flex:none;width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-weight:800;font-size:20px;color:#fff;background:linear-gradient(180deg,#5ea0ff,#1f5fd8);box-shadow:0 5px 0 #14409a,0 8px 14px rgba(0,0,0,.3),inset 0 2px 0 rgba(255,255,255,.5)}
+h1{font-size:19px;line-height:1.15;margin:0}
+.sub{margin:2px 0 0;font-size:12.5px;color:var(--mut)}
+section{margin-top:14px;padding-top:10px;border-top:1px solid var(--line)}
+h3{margin:0 0 8px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+.grp{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.ctl{flex:1 1 100%}.top{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:6px}
+.rng{display:flex;align-items:center;gap:10px}
+.btn{font:700 15px/1 system-ui,sans-serif;border:0;border-radius:14px;padding:12px 16px;color:#2b1700;cursor:pointer;background:linear-gradient(180deg,#ffe08a 0%,#ffb21f 55%,#f08a00 100%);box-shadow:0 6px 0 #b26200,0 10px 16px rgba(0,0,0,.32),inset 0 2px 0 rgba(255,255,255,.75),inset 0 -3px 6px rgba(160,70,0,.35);transition:transform .08s,box-shadow .08s,filter .15s;touch-action:manipulation;user-select:none}
+.btn:hover{filter:brightness(1.07)}
+.btn:active,.btn.on{transform:translateY(5px);box-shadow:0 1px 0 #b26200,0 3px 8px rgba(0,0,0,.32),inset 0 3px 8px rgba(120,50,0,.5)}
+.btn.g{background:linear-gradient(180deg,#b4f5ab,#37c44c 55%,#1f9a35);color:#04210b;box-shadow:0 6px 0 #146e25,0 10px 16px rgba(0,0,0,.32),inset 0 2px 0 rgba(255,255,255,.7),inset 0 -3px 6px rgba(10,80,30,.35)}
+.btn.g:active{box-shadow:0 1px 0 #146e25,0 3px 8px rgba(0,0,0,.32),inset 0 3px 8px rgba(5,60,20,.5)}
+.btn.r{background:linear-gradient(180deg,#ffb0a8,#f0503f 55%,#c92a1a);color:#fff;box-shadow:0 6px 0 #8c180d,0 10px 16px rgba(0,0,0,.32),inset 0 2px 0 rgba(255,255,255,.6),inset 0 -3px 6px rgba(90,10,0,.35)}
+.btn.r:active{box-shadow:0 1px 0 #8c180d,0 3px 8px rgba(0,0,0,.32),inset 0 3px 8px rgba(80,5,0,.5)}
+.btn.c{background:linear-gradient(180deg,#f2f5fc,#c9d2e6 60%,#aab6d2);color:#1b2640;box-shadow:0 6px 0 #6f7da3,0 10px 16px rgba(0,0,0,.28),inset 0 2px 0 rgba(255,255,255,.9),inset 0 -3px 6px rgba(60,80,130,.3);padding:10px 14px;font-size:14px}
+.btn.c.on{background:linear-gradient(180deg,#86b8ff,#2f7cf0 60%,#1d5fd0);color:#fff;box-shadow:0 1px 0 #123e90,0 3px 8px rgba(0,0,0,.3),inset 0 3px 8px rgba(10,40,120,.55),0 0 14px rgba(70,140,255,.7)}
+.btn.sm{padding:6px 13px;font-size:20px;border-radius:12px;box-shadow:0 4px 0 #b26200,0 7px 12px rgba(0,0,0,.3),inset 0 2px 0 rgba(255,255,255,.75)}
+.btn[disabled]{filter:grayscale(.9) opacity(.45);pointer-events:none}
+input[type=range]{-webkit-appearance:none;appearance:none;flex:1;min-width:0;height:14px;border-radius:9px;background:linear-gradient(180deg,#b9c4de,#e9eef9);box-shadow:inset 0 3px 6px rgba(0,0,0,.35);outline:0}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:32px;height:32px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0,#ffd27a 30%,#ff9d1f 70%,#c46100 100%);box-shadow:0 5px 9px rgba(0,0,0,.5),inset 0 -3px 5px rgba(120,50,0,.4);border:0;cursor:grab}
+input[type=range]::-moz-range-thumb{width:32px;height:32px;border:0;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0,#ffd27a 30%,#ff9d1f 70%,#c46100 100%);box-shadow:0 5px 9px rgba(0,0,0,.5)}
+#hud{position:absolute;left:12px;top:12px;max-width:calc(100% - 24px);padding:10px 14px;border-radius:16px;background:rgba(8,14,28,.66);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;font:600 14px/1.45 system-ui,sans-serif;box-shadow:0 10px 28px rgba(0,0,0,.4);pointer-events:none}
+#hud b{font-variant-numeric:tabular-nums}
+#hud .k{color:#9fb4dd;font-weight:500}
+#banner{position:absolute;left:50%;top:14px;transform:translateX(-50%);padding:12px 20px;border-radius:16px;font:800 17px/1.3 system-ui;color:#fff;text-align:center;background:rgba(10,16,30,.8);box-shadow:0 12px 30px rgba(0,0,0,.45);display:none;max-width:90%}
+#note{font-size:12.5px;color:var(--mut);margin-top:8px}
+canvas.gr{width:100%;height:auto;border-radius:12px;background:#0d1628;box-shadow:inset 0 2px 8px rgba(0,0,0,.5)}
+@media (prefers-reduced-motion:reduce){.btn{transition:none}}
+</style>
+</head>
+<body>
+<div id="app">
+<div id="stage"><div id="hud"></div><div id="banner"></div></div>
+<aside id="panel"><div class="ttl"><div class="code">1А</div><div><h1>Реакция және тежеу жолы</h1><p class="sub">Екі жүргізуші: «Мен» және телефонға қараған. Кім тоқтап үлгереді?</p></div></div></aside>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+
+const $=(s,r=document)=>r.querySelector(s),el=h=>{const d=document.createElement('div');d.innerHTML=h.trim();return d.firstChild};
+const fm=(x,d=1)=>(+x).toFixed(d).replace('.',',');
+const stage=$('#stage'),panel=$('#panel'),hud=$('#hud'),banner=$('#banner');
+if(!window.THREE){stage.innerHTML='<p style="padding:24px;color:#fff">Three.js жүктелмеді. Интернетті тексеріп, бетті жаңартыңыз.</p>';throw new Error('three')}
+const renderer=new THREE.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));
+renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;
+stage.prepend(renderer.domElement);
+const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(50,1,.1,6000);
+const fit=()=>{const w=stage.clientWidth||300,h=stage.clientHeight||300;renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix()};
+new ResizeObserver(fit).observe(stage);fit();
+const rnd=(a,b)=>a+Math.random()*(b-a),clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+const tex=(w,h,fn,rep)=>{const c=document.createElement('canvas');c.width=w;c.height=h;fn(c.getContext('2d'),w,h);const t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;t.anisotropy=8;if(rep){t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(rep[0],rep[1])}return t};
+function label(txt,o={}){const fs=o.fs||48,c=document.createElement('canvas'),x=c.getContext('2d');x.font='700 '+fs+'px system-ui,sans-serif';const w=Math.ceil(x.measureText(txt).width)+36,h=fs+28;c.width=w;c.height=h;x.font='700 '+fs+'px system-ui,sans-serif';x.fillStyle=o.bg||'rgba(10,16,30,.8)';const r=22;x.beginPath();x.moveTo(r,0);x.arcTo(w,0,w,h,r);x.arcTo(w,h,0,h,r);x.arcTo(0,h,0,0,r);x.arcTo(0,0,w,0,r);x.fill();x.fillStyle=o.color||'#fff';x.textBaseline='middle';x.fillText(txt,18,h/2+2);const t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;const s=new THREE.Sprite(new THREE.SpriteMaterial({map:t,transparent:true,depthTest:false}));const k=o.s||1;s.scale.set(k*w/h,k,1);s.renderOrder=10;return s}
+function glow(col,size){const c=document.createElement('canvas');c.width=c.height=128;const x=c.getContext('2d'),g=x.createRadialGradient(64,64,0,64,64,64);g.addColorStop(0,col);g.addColorStop(.25,col.replace(/[\d.]+\)$/,'.45)'));g.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=g;x.fillRect(0,0,128,128);const s=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),blending:THREE.AdditiveBlending,transparent:true,depthWrite:false}));s.scale.set(size,size,1);return s}
+const sec=t=>{const d=el(`<section><h3>${t}</h3><div class="grp"></div></section>`);panel.appendChild(d);return $('.grp',d)};
+const btn=(box,t,c,f)=>{const b=el(`<button class="btn ${c||''}">${t}</button>`);b.onclick=f;box.appendChild(b);return b};
+function seg(box,items,cur,f){const bs=items.map(([k,t])=>{const b=el(`<button class="btn c">${t}</button>`);b.onclick=()=>{set(k);f(k)};if(k===cur)b.classList.add('on');box.appendChild(b);return b});const set=k=>bs.forEach((b,i)=>b.classList.toggle('on',items[i][0]===k));return set}
+function slider(box,t,mn,mx,st,v,fo,f){const w=el(`<div class="ctl"><div class="top"><span>${t}</span><b></b></div><div class="rng"><button class="btn sm" aria-label="кеміту">−</button><input type="range" aria-label="${t}"><button class="btn sm" aria-label="арттыру">+</button></div></div>`);const r=$('input',w),b=$('b',w);r.min=mn;r.max=mx;r.step=st;r.value=v;const u=()=>{b.textContent=fo(+r.value)};const set=x=>{r.value=clamp(x,mn,mx);u();f(+r.value)};r.oninput=()=>{u();f(+r.value)};const [m,p]=w.querySelectorAll('button');m.onclick=()=>set(+r.value-st);p.onclick=()=>set(+r.value+st);box.appendChild(w);u();return {set,get:()=>+r.value,el:w}}
+function rv(a,b){return Math.round(rnd(a,b))}
+class Orbit{constructor(dom,o){Object.assign(this,{t:.6,p:1.2,r:20,min:3,max:300,tg:new THREE.Vector3()},o);let d=0,px=0,py=0;dom.addEventListener('pointerdown',e=>{d=1;px=e.clientX;py=e.clientY;dom.setPointerCapture(e.pointerId)});dom.addEventListener('pointermove',e=>{if(!d)return;this.t-=(e.clientX-px)*.006;this.p=clamp(this.p-(e.clientY-py)*.005,.08,1.55);px=e.clientX;py=e.clientY});dom.addEventListener('pointerup',()=>d=0);dom.addEventListener('wheel',e=>{e.preventDefault();this.r=clamp(this.r*(1+e.deltaY*.001),this.min,this.max)},{passive:false})}
+apply(c){const s=Math.sin(this.p);c.position.set(this.tg.x+this.r*s*Math.sin(this.t),this.tg.y+this.r*Math.cos(this.p),this.tg.z+this.r*s*Math.cos(this.t));c.lookAt(this.tg)}}
+function h3(x,y,z){const n=Math.sin(x*127.1+y*311.7+z*74.7)*43758.5453;return n-Math.floor(n)}
+function vn3(x,y,z){const xi=Math.floor(x),yi=Math.floor(y),zi=Math.floor(z),xf=x-xi,yf=y-yi,zf=z-zi,u=xf*xf*(3-2*xf),v=yf*yf*(3-2*yf),w=zf*zf*(3-2*zf),L=(a,b,t)=>a+(b-a)*t;return L(L(L(h3(xi,yi,zi),h3(xi+1,yi,zi),u),L(h3(xi,yi+1,zi),h3(xi+1,yi+1,zi),u),v),L(L(h3(xi,yi,zi+1),h3(xi+1,yi,zi+1),u),L(h3(xi,yi+1,zi+1),h3(xi+1,yi+1,zi+1),u),v),w)}
+const fb=(x,y,z,o=5)=>{let s=0,a=.5;for(let i=0;i<o;i++){s+=a*vn3(x,y,z);x*=2.03;y*=2.03;z*=2.03;a*=.5}return s};
+function skyDome(){const c=document.createElement('canvas');c.width=4;c.height=256;const t=new THREE.CanvasTexture(c),m=new THREE.Mesh(new THREE.SphereGeometry(3500,24,16),new THREE.MeshBasicMaterial({map:t,side:THREE.BackSide,fog:false,depthWrite:false}));scene.add(m);m.paint=cl=>{const x=c.getContext('2d'),g=x.createLinearGradient(0,0,0,256);g.addColorStop(0,cl[0]);g.addColorStop(.55,cl[1]);g.addColorStop(1,cl[2]);x.fillStyle=g;x.fillRect(0,0,4,256);t.needsUpdate=true};return m}
+function starField(n,R){const p=new Float32Array(n*3);for(let i=0;i<n;i++){const u=Math.random()*2-1,a=Math.random()*6.283,s=Math.sqrt(1-u*u);p.set([R*s*Math.cos(a),R*u,R*s*Math.sin(a)],i*3)}const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(p,3));const m=new THREE.Points(g,new THREE.PointsMaterial({color:0xffffff,size:1.8,sizeAttenuation:false,fog:false,transparent:true,opacity:.9}));scene.add(m);return m}
+let _last=performance.now();
+function _loop(now){const dt=Math.min(.05,(now-_last)/1e3);_last=now;update(dt,now/1e3);renderer.render(scene,camera);requestAnimationFrame(_loop)}
+const start=()=>requestAnimationFrame(_loop);
+
+const WE={dry:{a:5,l:'☀️ Құрғақ'},rain:{a:3.5,l:'🌧 Жаңбыр'},snow:{a:2,l:'❄️ Қар'}};
+const S={v:90,tA:.2,tB:1.5,a:5,D:70,w:'dry',run:false,t:0,cam:'back',h:20,spd:1,end:0,over:0,done:false};
+const L0=45,PX=[-2,2];
+const dome=skyDome();
+const hemi=new THREE.HemisphereLight(0xffffff,0x667766,.7),sun=new THREE.DirectionalLight(0xfff0d8,1.3);sun.position.set(-60,90,-40);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);Object.assign(sun.shadow.camera,{left:-60,right:60,top:140,bottom:-60,near:1,far:300});scene.add(hemi,sun,sun.target);
+const mt=(c,r,m)=>new THREE.MeshStandardMaterial({color:c,roughness:r??.9,metalness:m||0});
+const asT=tex(512,512,(x,w,h)=>{x.fillStyle='#3a3d42';x.fillRect(0,0,w,h);for(let i=0;i<9000;i++){const v=rv(40,95);x.fillStyle=`rgb(${v},${v},${v+4})`;x.fillRect(rnd(0,w),rnd(0,h),rnd(1,3),rnd(1,3))}},[2,60]);
+const road=new THREE.Mesh(new THREE.PlaneGeometry(9,420),new THREE.MeshStandardMaterial({map:asT,roughness:.9}));road.rotation.x=-Math.PI/2;road.position.set(0,0,90);road.receiveShadow=true;scene.add(road);
+const grass=new THREE.Mesh(new THREE.PlaneGeometry(600,600),mt(0x4d8f45));grass.rotation.x=-Math.PI/2;grass.position.set(0,-.05,90);grass.receiveShadow=true;scene.add(grass);
+[-6.5,6.5].forEach(x=>{const s=new THREE.Mesh(new THREE.BoxGeometry(4,.2,420),mt(0xb9b9b4));s.position.set(x,.08,90);s.receiveShadow=true;scene.add(s)});
+const wm=mt(0xffffff,.8);[-4.4,4.4].forEach(x=>{const e=new THREE.Mesh(new THREE.BoxGeometry(.15,.02,420),wm);e.position.set(x,.03,90);scene.add(e)});
+for(let z=-100;z<290;z+=8){const d=new THREE.Mesh(new THREE.BoxGeometry(.15,.02,3.5),wm);d.position.set(0,.03,z);scene.add(d)}
+// stop line and zebra
+const lineM=new THREE.Mesh(new THREE.BoxGeometry(9,.03,.6),wm);lineM.position.set(0,.04,70-.6);scene.add(lineM);
+const zebra=new THREE.Group();for(let i=-8;i<=8;i++){const b=new THREE.Mesh(new THREE.BoxGeometry(.6,.03,3.6),wm);b.position.set(i*.52,.04,0);zebra.add(b)}scene.add(zebra);
+// buildings, trees, lamps, mountains
+const winT=(c)=>tex(128,256,(x,w,h)=>{x.fillStyle=c;x.fillRect(0,0,w,h);for(let a=0;a<4;a++)for(let b=0;b<10;b++){x.fillStyle=Math.random()<.35?'#ffe7a0':'#33465e';x.fillRect(a*32+6,b*25+5,20,15)}});
+const cols=['#a9b4c2','#c9b79b','#8fa1b3','#b8a6a0'];
+for(let i=0;i<34;i++){const side=i%2?1:-1,z=-90+Math.floor(i/2)*22,hh=rnd(14,34),w=rnd(10,16);const t=winT(cols[i%4]);t.repeat.set(2,hh/9);t.wrapS=t.wrapT=THREE.RepeatWrapping;const b=new THREE.Mesh(new THREE.BoxGeometry(w,hh,16),new THREE.MeshStandardMaterial({map:t,roughness:.8}));b.position.set(side*(15+w/2),hh/2,z);b.castShadow=true;b.receiveShadow=true;scene.add(b)}
+for(let i=0;i<60;i++){const side=i%2?1:-1,z=-95+Math.floor(i/2)*13,t=new THREE.Group(),tr=new THREE.Mesh(new THREE.CylinderGeometry(.18,.25,2.6,6),mt(0x5c3d22)),cr=new THREE.Mesh(new THREE.SphereGeometry(1.7,10,8),mt(0x2e7d32));tr.position.y=1.3;cr.position.y=3.8;[tr,cr].forEach(m=>{m.castShadow=true;t.add(m)});t.position.set(side*7.3,0,z);scene.add(t)}
+const lamps=new THREE.Group();for(let i=0;i<20;i++){const s=i%2?1:-1,z=-90+Math.floor(i/2)*35,p=new THREE.Mesh(new THREE.CylinderGeometry(.07,.09,7,6),mt(0x555a62,.5,.6)),l=new THREE.Mesh(new THREE.SphereGeometry(.28,10,8),new THREE.MeshBasicMaterial({color:0xfff2c0}));p.position.set(s*5.4,3.5,z);l.position.set(s*5.4,7.1,z);lamps.add(p,l)}scene.add(lamps);
+const mtn=new THREE.Group();for(let i=0;i<9;i++){const hh=rnd(120,230),c=new THREE.Mesh(new THREE.ConeGeometry(rnd(90,150),hh,7),mt(0x56657a,1)),cap=new THREE.Mesh(new THREE.ConeGeometry(0,0,1),mt(0xffffff));c.position.set(-420+i*105,hh/2-5,700+rnd(0,80));const sn=new THREE.Mesh(new THREE.ConeGeometry(c.geometry.parameters.radius*.45,hh*.4,7),mt(0xf4f8ff,.6));sn.position.set(c.position.x,hh*.8-5,c.position.z);mtn.add(c,sn)}scene.add(mtn);
+// traffic lights + pedestrians
+const lights=[];PX.forEach(x=>{const g=new THREE.Group(),p=new THREE.Mesh(new THREE.CylinderGeometry(.08,.1,5,8),mt(0x333333,.5,.5)),b=new THREE.Mesh(new THREE.BoxGeometry(.7,1.9,.5),mt(0x111111,.6)),r=new THREE.Mesh(new THREE.SphereGeometry(.24,14,10),new THREE.MeshBasicMaterial({color:0x330000})),gr=new THREE.Mesh(new THREE.SphereGeometry(.24,14,10),new THREE.MeshBasicMaterial({color:0x00aa33}));p.position.set(0,2.5,0);b.position.set(0,5.4,0);r.position.set(0,5.9,-.3);gr.position.set(0,4.9,-.3);g.add(p,b,r,gr);g.position.set(x*1.85>0?5.6:-5.6,0,70);scene.add(g);lights.push({r,g:gr})});
+const peds=PX.map(x=>{const g=new THREE.Group(),b=new THREE.Mesh(new THREE.CylinderGeometry(.22,.26,.9,10),mt(x<0?0x1e88e5:0xf4511e)),h=new THREE.Mesh(new THREE.SphereGeometry(.2,12,10),mt(0xf1c9a5)),l=new THREE.Mesh(new THREE.CylinderGeometry(.16,.16,.8,8),mt(0x2b2b3a));l.position.y=.4;b.position.y=1.25;h.position.y=1.9;[l,b,h].forEach(m=>{m.castShadow=true;g.add(m)});g.position.set(x,0,70+2.8);scene.add(g);return g});
+// cars
+function makeCar(col){const g=new THREE.Group(),body=new THREE.Mesh(new THREE.BoxGeometry(1.9,.62,4.4),mt(col,.25,.5)),cab=new THREE.Mesh(new THREE.BoxGeometry(1.6,.55,2.2),new THREE.MeshStandardMaterial({color:0x182436,roughness:.1,metalness:.6}));body.position.y=.72;cab.position.set(0,1.25,-.15);body.castShadow=cab.castShadow=true;g.add(body,cab);
+const wmx=mt(0x111111,.7);[[-.98,1.4],[.98,1.4],[-.98,-1.4],[.98,-1.4]].forEach(([x,z])=>{const w=new THREE.Mesh(new THREE.CylinderGeometry(.38,.38,.3,16),wmx);w.rotation.z=Math.PI/2;w.position.set(x,.38,z);w.castShadow=true;g.add(w)});
+const tl=new THREE.MeshStandardMaterial({color:0x550000,emissive:0xff1111,emissiveIntensity:0}),hl=new THREE.MeshBasicMaterial({color:0xfff6d0});[-.7,.7].forEach(x=>{const t=new THREE.Mesh(new THREE.BoxGeometry(.4,.18,.06),tl);t.position.set(x,.86,-2.2);const h=new THREE.Mesh(new THREE.BoxGeometry(.4,.16,.06),hl);h.position.set(x,.8,2.2);g.add(t,h)});g.userData.tl=tl;return g}
+const cars=[makeCar(0x1e88e5),makeCar(0xf4511e)];cars.forEach((c,i)=>{c.position.x=PX[i];scene.add(c)});
+const tags=[label('Мен',{s:1.1,bg:'rgba(30,136,229,.9)'}),label('📱 Телефон',{s:1.1,bg:'rgba(244,81,30,.9)'})];tags.forEach((t,i)=>{t.position.set(PX[i],3.6,0);scene.add(t)});
+// predicted marks
+const marks=[];function mark(x,col){const m=new THREE.Mesh(new THREE.BoxGeometry(3.4,.04,.35),new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:.85}));m.position.x=x;scene.add(m);const l=label('',{s:.8});scene.add(l);return {m,l,col}}
+const mk=[[mark(-2,0x66c2ff),mark(-2,0x1e88e5)],[mark(2,0xffb08a),mark(2,0xf4511e)]];
+function setMark(o,z,txt){o.m.position.set(o.m.position.x,.06,z);scene.remove(o.l);o.l=label(txt,{s:.9,bg:'rgba(10,16,30,.85)'});o.l.position.set(o.m.position.x,2.2,z);scene.add(o.l)}
+// weather
+const NR=900,rp=new Float32Array(NR*6),rx=[],ry=[],rz=[];for(let i=0;i<NR;i++){rx.push(rnd(-20,20));ry.push(rnd(0,18));rz.push(rnd(-8,40))}
+const rg=new THREE.BufferGeometry();rg.setAttribute('position',new THREE.BufferAttribute(rp,3));const rain=new THREE.LineSegments(rg,new THREE.LineBasicMaterial({color:0xbcd8ff,transparent:true,opacity:.55}));rain.frustumCulled=false;scene.add(rain);
+function weather(){const w=S.w;dome.paint(w=='dry'?['#1c6bcf','#7dbdf3','#eaf5ff']:w=='rain'?['#3a4656','#6c7a8c','#a9b4c0']:['#8e9bb0','#c3ccd8','#eef2f6']);scene.fog=w=='dry'?new THREE.Fog(0xcfe6f8,160,900):new THREE.Fog(w=='rain'?0x8a97a6:0xdfe6ee,50,420);hemi.intensity=w=='dry'?.7:.55;sun.intensity=w=='dry'?1.3:.35;road.material.roughness=w=='dry'?.9:w=='rain'?.18:.35;road.material.metalness=w=='rain'?.25:0;road.material.color.setHex(w=='snow'?0xcfd6df:0xffffff);grass.material.color.setHex(w=='snow'?0xf2f6fa:0x4d8f45);rain.visible=w!='dry';rain.material.color.setHex(w=='rain'?0xbcd8ff:0xffffff);rain.userData.snow=w=='snow'}
+// physics
+function carS(tr,t){const v=S.v/3.6,tT=L0/v;if(t<tT)return{s:-L0+v*t,v,br:0};const tau=t-tT;if(tau<tr)return{s:v*tau,v,br:0};const d=tau-tr,td=v/S.a;if(d<td)return{s:v*tr+v*d-.5*S.a*d*d,v:v-S.a*d,br:1};return{s:v*tr+v*td-.5*S.a*td*td,v:0,br:1,stop:1}}
+const tr=i=>i?S.tB:S.tA,sr=i=>S.v/3.6*tr(i),sb=()=>Math.pow(S.v/3.6,2)/(2*S.a);
+const status=i=>{const tot=sr(i)+sb();return tot<=S.D?['✓ Уақытында тоқтады','#7dff9a']:tot<S.D+2.8?['⚠ Сызықтан асып тоқтады','#ffd166']:['✗ Жаяу жүргіншіге соқты!','#ff6b6b']};
+function refresh(){mk.forEach((p,i)=>{setMark(p[0],sr(i),'реакция '+fm(sr(i),1)+' м');setMark(p[1],sr(i)+sb(),'тоқтау '+fm(sr(i)+sb(),1)+' м')});lineM.position.z=S.D-.6;zebra.position.z=S.D+1.8;peds.forEach(p=>p.position.z=S.D+2.8);lights.forEach(l=>l.g.parent.position.z=S.D);
+hud.innerHTML=[0,1].map(i=>{const st=status(i);return `<div><b style="color:${i?'#ff9a73':'#7cc0ff'}">${i?'📱 Телефон':'Мен'}</b> <span class="k">t₀ =</span> <b>${fm(tr(i),2)} с</b> · реакция <b>${fm(sr(i),1)} м</b> · тежеу <b>${fm(sb(),1)} м</b> · жалпы <b>${fm(sr(i)+sb(),1)} м</b> <span style="color:${st[1]}">${st[0]}</span></div>`}).join('')+`<div class="k">Стоп-сызыққа дейін: ${S.D} м · v = ${S.v} км/сағ (${fm(S.v/3.6,1)} м/с) · a = ${fm(S.a,1)} м/с²</div>`}
+function reset(){S.run=false;S.t=0;S.done=false;S.end=0;S.over=0;banner.style.display='none';peds.forEach((p,i)=>{p.rotation.z=0;p.position.y=0});lights.forEach(l=>{l.r.material.color.setHex(0x330000);l.g.material.color.setHex(0x00aa33)});refresh();pose(0)}
+function pose(t){cars.forEach((c,i)=>{const o=carS(tr(i),t);c.position.set(PX[i],0,o.s-2.2);c.userData.tl.emissiveIntensity=o.br?2.2:0;tags[i].position.set(PX[i],3.6,o.s-2.2);c.userData.o=o});const tT=L0/(S.v/3.6);const red=t>=tT;lights.forEach(l=>{l.r.material.color.setHex(red?0xff2a1a:0x330000);l.g.material.color.setHex(red?0x062a10:0x00cc44)})}
+// UI
+const g1=sec('Жүргізуші'),g2=sec('Сызғыш арқылы реакция'),g3=sec('Қозғалыс және жол'),g4=sec('Басқару');
+const sA=slider(g1,'«Мен» реакция уақыты t₀',.1,1,.01,.2,v=>fm(v,2)+' с',v=>{S.tA=v;refresh();if(!S.run)pose(S.t)});
+slider(g1,'📱 Телефонға қараған жүргізуші',.5,2.5,.05,1.5,v=>fm(v,2)+' с',v=>{S.tB=v;refresh()});
+const tc=el('<div class="top" style="flex:1 1 100%"><span>Сызғыш құлаған биіктік → уақыт</span><b></b></div>');
+slider(g2,'Сызғыш h',5,40,1,20,v=>v+' см',v=>{S.h=v;tc.lastChild.textContent='t = √(2h/g) = '+fm(Math.sqrt(2*v/100/9.8),2)+' с'});g2.appendChild(tc);tc.lastChild.textContent='t = √(2h/g) = 0,20 с';
+btn(g2,'⬆ Мен үшін қолдану','b'.replace('b','g'),()=>{sA.set(Math.round(Math.sqrt(2*S.h/100/9.8)*100)/100)});
+slider(g3,'Көлік жылдамдығы v',30,130,5,90,v=>v+' км/сағ',v=>{S.v=v;refresh();reset()});
+seg(g3,Object.entries(WE).map(([k,o])=>[k,o.l]),'dry',k=>{S.w=k;S.a=WE[k].a;as.set(S.a);weather();refresh()});
+const as=slider(g3,'Тежеу үдеуі a',1,8,.5,5,v=>fm(v,1)+' м/с²',v=>{S.a=v;refresh()});
+slider(g3,'Стоп-сызыққа дейінгі қашықтық',30,150,5,70,v=>v+' м',v=>{S.D=v;refresh()});
+btn(g4,'▶ Сигнал!','g',()=>{reset();S.run=true});btn(g4,'↺ Қайта','r',reset);
+seg(g4,[['back','🎥 Артынан'],['top','🛰 Жоғарыдан']],'back',k=>S.cam=k);seg(g4,[[1,'×1'],[.4,'×0,4']],1,k=>S.spd=k);
+g4.appendChild(el('<div id="note">Қызыл жарық екі көлік стоп-сызықтан 70 м (немесе таңдалған қашықтықта) болғанда жанады. Көк сызық: реакция жолы, қою сызық: толық тоқтау жолы.</div>'));
+const cp=new THREE.Vector3(0,6,-60);
+function update(dt,time){if(S.run){S.t+=dt*S.spd;pose(S.t);const o=cars.map(c=>c.userData.o);if(!S.done&&o[0].stop&&o[1].stop){S.done=true;S.end=S.t;banner.innerHTML=[0,1].map(i=>{const st=status(i);return `<div style="color:${st[1]}">${i?'📱 Телефон':'Мен'}: ${fm(sr(i)+sb(),1)} м · ${st[0]}</div>`}).join('');banner.style.display='block';[0,1].forEach(i=>{if(sr(i)+sb()>=S.D+2.8){peds[i].rotation.z=1.4;peds[i].position.y=.5}})}}
+const mid=S.run||S.t>0?(cars[0].position.z+cars[1].position.z)/2:-L0;let tg;
+if(S.cam=='back'){tg=new THREE.Vector3(0,5.5,mid-16);camera.up.set(0,1,0);cp.lerp(tg,.1);camera.position.copy(cp);camera.lookAt(0,1.4,mid+24)}else{tg=new THREE.Vector3(0,125,40);camera.up.set(0,0,1);cp.lerp(tg,.08);camera.position.copy(cp);camera.lookAt(0,0,40)}
+dome.position.copy(camera.position);sun.target.position.set(0,0,mid);sun.position.set(-60,90,mid-40);
+if(rain.visible){const sn=rain.userData.snow,vy=sn?4:26;for(let i=0;i<NR;i++){ry[i]-=vy*dt;if(ry[i]<0)ry[i]+=18;const x=rx[i]+camera.position.x*0,z=rz[i]+(camera.position.z>-50?camera.position.z:-50),l=sn?.12:.7;rp.set([rx[i],ry[i],z,rx[i]+(sn?.05:0),ry[i]-l,z],i*6)}rg.attributes.position.needsUpdate=true}}
+weather();reset();start();
+
+</script>
+</body>
+</html>

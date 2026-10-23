@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Жер қозғалысы · 2Б станциясы</title>
+<style>
+:root{color-scheme:light dark;--glass:rgba(255,255,255,.9);--ink:#16202f;--mut:#4d5b75;--line:rgba(20,30,50,.16);--page:#0b1220;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--glass:rgba(17,24,39,.88);--ink:#eef3ff;--mut:#a8b5d1;--line:rgba(255,255,255,.14)}}
+:root[data-theme="dark"]{--glass:rgba(17,24,39,.88);--ink:#eef3ff;--mut:#a8b5d1;--line:rgba(255,255,255,.14)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html,body{height:100%;margin:0}
+body{background:var(--page);color:var(--ink);font-family:system-ui,"Segoe UI",Roboto,Arial,sans-serif;overflow:hidden}
+#app{height:100%;display:grid;grid-template-columns:minmax(0,1fr) minmax(330px,410px)}
+@media(max-width:860px){#app{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr) minmax(0,48%)}}
+#stage{position:relative;min-height:0;overflow:hidden;touch-action:none;background:#0b1220}
+#stage canvas{display:block;width:100%;height:100%}
+#panel{background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-left:1px solid var(--line);padding:14px 16px 24px;overflow:auto}
+.ttl{display:flex;gap:12px;align-items:center;margin-bottom:6px}
+.code{flex:none;width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-weight:800;font-size:20px;color:#fff;background:linear-gradient(180deg,#5ea0ff,#1f5fd8);box-shadow:0 5px 0 #14409a,0 8px 14px rgba(0,0,0,.3),inset 0 2px 0 rgba(255,255,255,.5)}
+h1{font-size:19px;line-height:1.15;margin:0}
+.sub{margin:2px 0 0;font-size:12.5px;color:var(--mut)}
+section{margin-top:14px;padding-top:10px;border-top:1px solid var(--line)}
+h3{margin:0 0 8px;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+.grp{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.ctl{flex:1 1 100%}.top{display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:6px}
+.rng{display:flex;align-items:center;gap:10px}
+.btn{font:700 15px/1 system-ui,sans-serif;border:0;border-radius:14px;padding:12px 16px;color:#2b1700;cursor:pointer;background:linear-gradient(180deg,#ffe08a 0%,#ffb21f 55%,#f08a00 100%);box-shadow:0 6px 0 #b26200,0 10px 16px rgba(0,0,0,.32),inset 0 2px 0 rgba(255,255,255,.75),inset 0 -3px 6px rgba(160,70,0,.35);transition:transform .08s,box-shadow .08s,filter .15s;touch-action:manipulation;user-select:none}
+.btn:hover{filter:brightness(1.07)}
+.btn:active,.btn.on{transform:translateY(5px);box-shadow:0 1px 0 #b26200,0 3px 8px rgba(0,0,0,.32),inset 0 3px 8px rgba(120,50,0,.5)}
+.btn.g{background:linear-gradient(180deg,#b4f5ab,#37c44c 55%,#1f9a35);color:#04210b;box-shadow:0 6px 0 #146e25,0 10px 16px rgba(0,0,0,.32),inset 0 2px 0 rgba(255,255,255,.7),inset 0 -3px 6px rgba(10,80,30,.35)}
+.btn.g:active{box-shadow:0 1px 0 #146e25,0 3px 8px rgba(0,0,0,.32),inset 0 3px 8px rgba(5,60,20,.5)}
+.btn.r{background:linear-gradient(180deg,#ffb0a8,#f0503f 55%,#c92a1a);color:#fff;box-shadow:0 6px 0 #8c180d,0 10px 16px rgba(0,0,0,.32),inset 0 2px 0 rgba(255,255,255,.6),inset 0 -3px 6px rgba(90,10,0,.35)}
+.btn.r:active{box-shadow:0 1px 0 #8c180d,0 3px 8px rgba(0,0,0,.32),inset 0 3px 8px rgba(80,5,0,.5)}
+.btn.c{background:linear-gradient(180deg,#f2f5fc,#c9d2e6 60%,#aab6d2);color:#1b2640;box-shadow:0 6px 0 #6f7da3,0 10px 16px rgba(0,0,0,.28),inset 0 2px 0 rgba(255,255,255,.9),inset 0 -3px 6px rgba(60,80,130,.3);padding:10px 14px;font-size:14px}
+.btn.c.on{background:linear-gradient(180deg,#86b8ff,#2f7cf0 60%,#1d5fd0);color:#fff;box-shadow:0 1px 0 #123e90,0 3px 8px rgba(0,0,0,.3),inset 0 3px 8px rgba(10,40,120,.55),0 0 14px rgba(70,140,255,.7)}
+.btn.sm{padding:6px 13px;font-size:20px;border-radius:12px;box-shadow:0 4px 0 #b26200,0 7px 12px rgba(0,0,0,.3),inset 0 2px 0 rgba(255,255,255,.75)}
+.btn[disabled]{filter:grayscale(.9) opacity(.45);pointer-events:none}
+input[type=range]{-webkit-appearance:none;appearance:none;flex:1;min-width:0;height:14px;border-radius:9px;background:linear-gradient(180deg,#b9c4de,#e9eef9);box-shadow:inset 0 3px 6px rgba(0,0,0,.35);outline:0}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:32px;height:32px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0,#ffd27a 30%,#ff9d1f 70%,#c46100 100%);box-shadow:0 5px 9px rgba(0,0,0,.5),inset 0 -3px 5px rgba(120,50,0,.4);border:0;cursor:grab}
+input[type=range]::-moz-range-thumb{width:32px;height:32px;border:0;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0,#ffd27a 30%,#ff9d1f 70%,#c46100 100%);box-shadow:0 5px 9px rgba(0,0,0,.5)}
+#hud{position:absolute;left:12px;top:12px;max-width:calc(100% - 24px);padding:10px 14px;border-radius:16px;background:rgba(8,14,28,.66);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;font:600 14px/1.45 system-ui,sans-serif;box-shadow:0 10px 28px rgba(0,0,0,.4);pointer-events:none}
+#hud b{font-variant-numeric:tabular-nums}
+#hud .k{color:#9fb4dd;font-weight:500}
+#banner{position:absolute;left:50%;top:14px;transform:translateX(-50%);padding:12px 20px;border-radius:16px;font:800 17px/1.3 system-ui;color:#fff;text-align:center;background:rgba(10,16,30,.8);box-shadow:0 12px 30px rgba(0,0,0,.45);display:none;max-width:90%}
+#note{font-size:12.5px;color:var(--mut);margin-top:8px}
+canvas.gr{width:100%;height:auto;border-radius:12px;background:#0d1628;box-shadow:inset 0 2px 8px rgba(0,0,0,.5)}
+@media (prefers-reduced-motion:reduce){.btn{transition:none}}
+</style>
+</head>
+<body>
+<div id="app">
+<div id="stage"><div id="hud"></div><div id="banner"></div></div>
+<aside id="panel"><div class="ttl"><div class="code">2Б</div><div><h1>Жер қозғалысы</h1><p class="sub">Жердің өз осінен айналуы және Күнді айнала қозғалысы</p></div></div></aside>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+
+const $=(s,r=document)=>r.querySelector(s),el=h=>{const d=document.createElement('div');d.innerHTML=h.trim();return d.firstChild};
+const fm=(x,d=1)=>(+x).toFixed(d).replace('.',',');
+const stage=$('#stage'),panel=$('#panel'),hud=$('#hud'),banner=$('#banner');
+if(!window.THREE){stage.innerHTML='<p style="padding:24px;color:#fff">Three.js жүктелмеді. Интернетті тексеріп, бетті жаңартыңыз.</p>';throw new Error('three')}
+const renderer=new THREE.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));
+renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;
+stage.prepend(renderer.domElement);
+const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(50,1,.1,6000);
+const fit=()=>{const w=stage.clientWidth||300,h=stage.clientHeight||300;renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix()};
+new ResizeObserver(fit).observe(stage);fit();
+const rnd=(a,b)=>a+Math.random()*(b-a),clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+const tex=(w,h,fn,rep)=>{const c=document.createElement('canvas');c.width=w;c.height=h;fn(c.getContext('2d'),w,h);const t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;t.anisotropy=8;if(rep){t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(rep[0],rep[1])}return t};
+function label(txt,o={}){const fs=o.fs||48,c=document.createElement('canvas'),x=c.getContext('2d');x.font='700 '+fs+'px system-ui,sans-serif';const w=Math.ceil(x.measureText(txt).width)+36,h=fs+28;c.width=w;c.height=h;x.font='700 '+fs+'px system-ui,sans-serif';x.fillStyle=o.bg||'rgba(10,16,30,.8)';const r=22;x.beginPath();x.moveTo(r,0);x.arcTo(w,0,w,h,r);x.arcTo(w,h,0,h,r);x.arcTo(0,h,0,0,r);x.arcTo(0,0,w,0,r);x.fill();x.fillStyle=o.color||'#fff';x.textBaseline='middle';x.fillText(txt,18,h/2+2);const t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;const s=new THREE.Sprite(new THREE.SpriteMaterial({map:t,transparent:true,depthTest:false}));const k=o.s||1;s.scale.set(k*w/h,k,1);s.renderOrder=10;return s}
+function glow(col,size){const c=document.createElement('canvas');c.width=c.height=128;const x=c.getContext('2d'),g=x.createRadialGradient(64,64,0,64,64,64);g.addColorStop(0,col);g.addColorStop(.25,col.replace(/[\d.]+\)$/,'.45)'));g.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=g;x.fillRect(0,0,128,128);const s=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),blending:THREE.AdditiveBlending,transparent:true,depthWrite:false}));s.scale.set(size,size,1);return s}
+const sec=t=>{const d=el(`<section><h3>${t}</h3><div class="grp"></div></section>`);panel.appendChild(d);return $('.grp',d)};
+const btn=(box,t,c,f)=>{const b=el(`<button class="btn ${c||''}">${t}</button>`);b.onclick=f;box.appendChild(b);return b};
+function seg(box,items,cur,f){const bs=items.map(([k,t])=>{const b=el(`<button class="btn c">${t}</button>`);b.onclick=()=>{set(k);f(k)};if(k===cur)b.classList.add('on');box.appendChild(b);return b});const set=k=>bs.forEach((b,i)=>b.classList.toggle('on',items[i][0]===k));return set}
+function slider(box,t,mn,mx,st,v,fo,f){const w=el(`<div class="ctl"><div class="top"><span>${t}</span><b></b></div><div class="rng"><button class="btn sm" aria-label="кеміту">−</button><input type="range" aria-label="${t}"><button class="btn sm" aria-label="арттыру">+</button></div></div>`);const r=$('input',w),b=$('b',w);r.min=mn;r.max=mx;r.step=st;r.value=v;const u=()=>{b.textContent=fo(+r.value)};const set=x=>{r.value=clamp(x,mn,mx);u();f(+r.value)};r.oninput=()=>{u();f(+r.value)};const [m,p]=w.querySelectorAll('button');m.onclick=()=>set(+r.value-st);p.onclick=()=>set(+r.value+st);box.appendChild(w);u();return {set,get:()=>+r.value,el:w}}
+function rv(a,b){return Math.round(rnd(a,b))}
+class Orbit{constructor(dom,o){Object.assign(this,{t:.6,p:1.2,r:20,min:3,max:300,tg:new THREE.Vector3()},o);let d=0,px=0,py=0;dom.addEventListener('pointerdown',e=>{d=1;px=e.clientX;py=e.clientY;dom.setPointerCapture(e.pointerId)});dom.addEventListener('pointermove',e=>{if(!d)return;this.t-=(e.clientX-px)*.006;this.p=clamp(this.p-(e.clientY-py)*.005,.08,1.55);px=e.clientX;py=e.clientY});dom.addEventListener('pointerup',()=>d=0);dom.addEventListener('wheel',e=>{e.preventDefault();this.r=clamp(this.r*(1+e.deltaY*.001),this.min,this.max)},{passive:false})}
+apply(c){const s=Math.sin(this.p);c.position.set(this.tg.x+this.r*s*Math.sin(this.t),this.tg.y+this.r*Math.cos(this.p),this.tg.z+this.r*s*Math.cos(this.t));c.lookAt(this.tg)}}
+function h3(x,y,z){const n=Math.sin(x*127.1+y*311.7+z*74.7)*43758.5453;return n-Math.floor(n)}
+function vn3(x,y,z){const xi=Math.floor(x),yi=Math.floor(y),zi=Math.floor(z),xf=x-xi,yf=y-yi,zf=z-zi,u=xf*xf*(3-2*xf),v=yf*yf*(3-2*yf),w=zf*zf*(3-2*zf),L=(a,b,t)=>a+(b-a)*t;return L(L(L(h3(xi,yi,zi),h3(xi+1,yi,zi),u),L(h3(xi,yi+1,zi),h3(xi+1,yi+1,zi),u),v),L(L(h3(xi,yi,zi+1),h3(xi+1,yi,zi+1),u),L(h3(xi,yi+1,zi+1),h3(xi+1,yi+1,zi+1),u),v),w)}
+const fb=(x,y,z,o=5)=>{let s=0,a=.5;for(let i=0;i<o;i++){s+=a*vn3(x,y,z);x*=2.03;y*=2.03;z*=2.03;a*=.5}return s};
+function skyDome(){const c=document.createElement('canvas');c.width=4;c.height=256;const t=new THREE.CanvasTexture(c),m=new THREE.Mesh(new THREE.SphereGeometry(3500,24,16),new THREE.MeshBasicMaterial({map:t,side:THREE.BackSide,fog:false,depthWrite:false}));scene.add(m);m.paint=cl=>{const x=c.getContext('2d'),g=x.createLinearGradient(0,0,0,256);g.addColorStop(0,cl[0]);g.addColorStop(.55,cl[1]);g.addColorStop(1,cl[2]);x.fillStyle=g;x.fillRect(0,0,4,256);t.needsUpdate=true};return m}
+function starField(n,R){const p=new Float32Array(n*3);for(let i=0;i<n;i++){const u=Math.random()*2-1,a=Math.random()*6.283,s=Math.sqrt(1-u*u);p.set([R*s*Math.cos(a),R*u,R*s*Math.sin(a)],i*3)}const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(p,3));const m=new THREE.Points(g,new THREE.PointsMaterial({color:0xffffff,size:1.8,sizeAttenuation:false,fog:false,transparent:true,opacity:.9}));scene.add(m);return m}
+let _last=performance.now();
+function _loop(now){const dt=Math.min(.05,(now-_last)/1e3);_last=now;update(dt,now/1e3);renderer.render(scene,camera);requestAnimationFrame(_loop)}
+const start=()=>requestAnimationFrame(_loop);
+
+const S={mode:'spin',lat:43,k:3,kd:20,ang:0,orb:0,day:0,sp:0};
+const RE=6400,W=7.27e-5,ROB=30;
+scene.background=new THREE.Color(0x02030a);const stars=starField(2600,2500);
+const sun=new THREE.DirectionalLight(0xfff4e0,2.2);sun.position.set(60,10,30);scene.add(sun,new THREE.AmbientLight(0x1a2440,.5));
+const sunPt=new THREE.PointLight(0xfff0d0,2.6,0,0);scene.add(sunPt);
+const sunBall=new THREE.Mesh(new THREE.SphereGeometry(4,32,24),new THREE.MeshBasicMaterial({color:0xffd27a}));const sg1=glow('rgba(255,200,100,.95)',34),sg2=glow('rgba(255,140,40,.6)',70);const sunG=new THREE.Group();sunG.add(sunBall,sg1,sg2);scene.add(sunG);
+// earth
+const eT=tex(640,320,(x,w,h)=>{const im=x.createImageData(w,h);for(let j=0;j<h;j++)for(let i=0;i<w;i++){const lo=(i/w-.5)*6.283,la=(.5-j/h)*3.1416,cl=Math.cos(la),px=cl*Math.cos(lo)*2.1,py=Math.sin(la)*2.1,pz=cl*Math.sin(lo)*2.1,n=fb(px,py,pz,5),k=(j*w+i)*4;let c;if(n>.5){const e=(n-.5)*3.2,dz=Math.abs(la)<.55&&Math.abs(la)>.2&&fb(px+9,py,pz,3)>.5;c=dz?[196-e*60,168-e*50,104-e*30]:[62+e*100,120-e*40,52+e*25];if(e>1.1)c=[150,140,130]}else{const d=(.5-n)*2.6;c=[14+8*(1-d),52+60*(1-Math.min(1,d)),110+100*(1-Math.min(1,d))]}if(Math.abs(la)>1.28+fb(px*2,py*2,pz*2,2)*.18)c=[236,242,248];im.data.set([c[0],c[1],c[2],255],k)}x.putImageData(im,0,0)});
+const cT=tex(512,256,(x,w,h)=>{const im=x.createImageData(w,h);for(let j=0;j<h;j++)for(let i=0;i<w;i++){const lo=(i/w-.5)*6.283,la=(.5-j/h)*3.1416,cl=Math.cos(la),n=fb(cl*Math.cos(lo)*3+20,Math.sin(la)*3,cl*Math.sin(lo)*3,5),a=Math.max(0,(n-.5)*3.2)*255;im.data.set([255,255,255,Math.min(230,a)],(j*w+i)*4)}x.putImageData(im,0,0)});
+const earthRoot=new THREE.Group(),tilt=new THREE.Group(),spin=new THREE.Group();scene.add(earthRoot);earthRoot.add(tilt);tilt.rotation.z=-.4084;tilt.add(spin);
+const earth=new THREE.Mesh(new THREE.SphereGeometry(5,64,48),new THREE.MeshStandardMaterial({map:eT,roughness:.85,metalness:0}));spin.add(earth);
+const clouds=new THREE.Mesh(new THREE.SphereGeometry(5.08,48,36),new THREE.MeshStandardMaterial({map:cT,transparent:true,depthWrite:false,roughness:1}));spin.add(clouds);
+const atm=new THREE.Mesh(new THREE.SphereGeometry(5.7,48,36),new THREE.ShaderMaterial({vertexShader:'varying vec3 n;void main(){n=normalize(normalMatrix*normal);gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',fragmentShader:'varying vec3 n;void main(){float i=pow(max(0.,.72-dot(n,vec3(0.,0.,1.))),3.);gl_FragColor=vec4(.3,.6,1.,1.)*i*2.;}',blending:THREE.AdditiveBlending,side:THREE.BackSide,transparent:true,depthWrite:false}));earthRoot.add(atm);
+// axis, marker, parallel, radius line, arrow
+const axis=new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,-8.5,0),new THREE.Vector3(0,8.5,0)]),new THREE.LineBasicMaterial({color:0xff5252}));tilt.add(axis);
+const mk=new THREE.Mesh(new THREE.SphereGeometry(.22,16,12),new THREE.MeshBasicMaterial({color:0xff3b30}));const mkG=glow('rgba(255,70,50,.9)',1.6);spin.add(mk,mkG);
+const par=new THREE.Line(new THREE.BufferGeometry(),new THREE.LineBasicMaterial({color:0xffee58}));spin.add(par);
+const rl=new THREE.Line(new THREE.BufferGeometry(),new THREE.LineBasicMaterial({color:0xffee58}));spin.add(rl);
+const va=new THREE.ArrowHelper(new THREE.Vector3(0,0,-1),new THREE.Vector3(),2,0x00e5ff,.7,.45);spin.add(va);
+const lb=label('',{s:.9});spin.add(lb);
+const orbL=new THREE.Line(new THREE.BufferGeometry().setFromPoints(Array.from({length:129},(_,i)=>new THREE.Vector3(Math.cos(i/128*6.283)*ROB,0,-Math.sin(i/128*6.283)*ROB))),new THREE.LineBasicMaterial({color:0x6ea8ff,transparent:true,opacity:.6}));scene.add(orbL);
+const ova=new THREE.ArrowHelper(new THREE.Vector3(0,0,-1),new THREE.Vector3(),4,0x00e5ff,1,.7);scene.add(ova);
+const orb=new Orbit(renderer.domElement,{t:.9,p:1.25,r:18,min:8,max:140});
+function setLat(){const la=S.lat*Math.PI/180,R=5,c=Math.cos(la);mk.position.set(R*c,R*Math.sin(la),0);mkG.position.copy(mk.position);par.geometry.setFromPoints(Array.from({length:97},(_,i)=>new THREE.Vector3(R*c*Math.cos(i/96*6.283),R*Math.sin(la),-R*c*Math.sin(i/96*6.283))));rl.geometry.setFromPoints([new THREE.Vector3(0,R*Math.sin(la),0),mk.position.clone()]);const v=W*RE*1000*c;va.position.copy(mk.position);va.setLength(.6+v/465*1.8,.7,.45);lb.position.set(R*c*1.12,R*Math.sin(la)+.9,0);const t=label('φ = '+S.lat+'°',{s:.7,bg:'rgba(10,16,30,.85)'});spin.remove(lb);lb.material.map=t.material.map;lb.scale.copy(t.scale);spin.add(lb)}
+// UI
+const g1=sec('Көрініс'),g2=sec('Жердің өз осінен айналуы'),g3=sec('Күнді айнала қозғалыс');
+seg(g1,[['spin','🌍 Өз осінен'],['orbit','☀️ Күнді айнала']],'spin',k=>mode(k));
+const ls=slider(g2,'Ендік φ',0,90,1,43,v=>v+'°',v=>{S.lat=v;setLat()});
+[['Экватор',0],['Алматы ендігі',43],['Байқоңыр ендігі',46],['Полюс',90]].forEach(([n,v])=>btn(g2,n+' '+v+'°','c',()=>ls.set(v)));
+seg(g2,[[1,'1 сағ/с'],[3,'3 сағ/с'],[12,'12 сағ/с'],[24,'24 сағ/с']],3,k=>S.k=k);
+g2.appendChild(el('<div id="note">Сары сызық: нүктенің айналу радиусы. Көгілдір көрсеткі: жылдамдық векторы. Экваторда радиус үлкен, сондықтан жылдамдық та үлкен.</div>'));
+seg(g3,[[5,'5 тәулік/с'],[20,'20 тәулік/с'],[60,'60 тәулік/с']],20,k=>S.kd=k);
+g3.appendChild(el('<div id="note">Масштаб көрнекілік үшін өзгертілген: шын мәнінде орбита радиусы 150 млн км. Жердің өз осінен айналуы мұнда қарқыны бойынша көрсетілген.</div>'));
+function mode(m){S.mode=m;const sp=m=='spin';g2.parentElement.style.display=sp?'':'none';g3.parentElement.style.display=sp?'none':'';earthRoot.scale.setScalar(sp?1:.22);earthRoot.position.set(0,0,0);[par,rl,va,mk,mkG,lb,axis].forEach(o=>o.visible=sp);orbL.visible=ova.visible=!sp;sunG.visible=!sp;sunPt.visible=!sp;sun.visible=sp;if(sp){orb.r=18;orb.min=8;orb.max=60;orb.tg.set(0,0,0)}else{orb.r=60;orb.min=12;orb.max=200;orb.tg.set(0,0,0);orb.p=1.0}}
+setLat();mode('spin');
+let hT=0;
+function update(dt,time){if(S.mode=='spin'){S.ang+=6.283185*S.k/24*dt;S.day=S.ang/6.283185;spin.rotation.y=S.ang;clouds.rotation.y=time*.01;sun.position.set(60,10,30)}
+else{S.orb+=6.283185*S.kd/365*dt;S.day=S.orb/6.283185*365;S.sp+=1.4*dt;spin.rotation.y=S.sp;const ex=Math.cos(S.orb)*ROB,ez=-Math.sin(S.orb)*ROB;earthRoot.position.set(ex,0,ez);ova.position.set(ex,0,ez);ova.setDirection(new THREE.Vector3(-Math.sin(S.orb),0,-Math.cos(S.orb)));ova.setLength(6,1.1,.8)}
+orb.apply(camera);stars.position.copy(camera.position);
+hT+=dt;if(hT>.1){hT=0;if(S.mode=='spin'){const c=Math.cos(S.lat*Math.PI/180),r=RE*c,v=W*r*1000;hud.innerHTML=`<div><span class="k">ω =</span> <b>${fm(W*1e5,2)}·10⁻⁵ рад/с</b> (T = 24 сағ)</div><div><span class="k">Айналу радиусы r =</span> <b>${fm(r,0)} км</b></div><div><span class="k">v = ωr =</span> <b>${fm(v,0)} м/с</b> = <b>${fm(v*3.6,0)} км/сағ</b></div><div class="k">Өткен уақыт: ${fm(S.day,2)} тәулік</div>`}else{const T=365*86400,w=6.283185/T,v=w*1.5e11;const bar=(x,c)=>`<div style="height:10px;border-radius:6px;background:${c};width:${Math.max(2,x)}%;box-shadow:0 2px 6px rgba(0,0,0,.4)"></div>`;hud.innerHTML=`<div><span class="k">R =</span> <b>150 млн км</b> · <span class="k">T =</span> <b>365 тәулік</b></div><div><span class="k">ω = 2π/T =</span> <b>${fm(w*1e7,1)}·10⁻⁷ рад/с</b></div><div><span class="k">v = ωR ≈</span> <b>${fm(v/1000,1)} км/с</b> = <b>${fm(v*3.6/1000,0)} мың км/сағ</b></div><div class="k">Экватордағы v = 0,465 км/с:</div>${bar(1.6,'#4aa8ff')}<div class="k">Орбитадағы v = 29,9 км/с:</div>${bar(100,'#ffb21f')}<div class="k">Өткен уақыт: ${fm(S.day,0)} тәулік</div>`}}}
+start();
+
+</script>
+</body>
+</html>
