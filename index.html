@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Google-дан табылмайтын физика</title>
+<meta name="description" content="Шебер сыныптың цифрлық материалдары: симуляциялар, карточкалар, нұсқаулықтар.">
+<style>
+/* =====================================================================
+   ТҮЗЕТУ ЖЕРІ ТЕК ФАЙЛДЫҢ СОҢЫНДАҒЫ «CONFIG» БӨЛІМІНДЕ.
+   Қалған код өзгертілмейді.
+   ===================================================================== */
+:root{
+  --terra:#C0502F; --indigo:#2B3A8C; --turq:#1FA3A3; --ivory:#F6EEDC;
+  --saffron:#F2B01E; --coral:#E4572E; --maroon:#7A1F2B;
+  --ink:#241A16; --card:#FFFBF2; --line:rgba(122,31,43,.18);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; font-family:"Segoe UI",system-ui,-apple-system,"Noto Sans",Roboto,Arial,sans-serif;
+  color:var(--ink); background:var(--ivory); line-height:1.5; -webkit-text-size-adjust:100%;
+}
+a{color:inherit}
+.wrap{max-width:1040px; margin:0 auto; padding:0 16px}
+
+/* ою-өрнек жолағы (мемлекеттік рәміздерсіз, тек ою элементі) */
+.orn{
+  height:18px;
+  background-color:var(--maroon);
+  background-image:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='36' height='18' viewBox='0 0 36 18'><path d='M18 1 L27 9 L18 17 L9 9 Z' fill='none' stroke='%23F2B01E' stroke-width='1.6'/><circle cx='18' cy='9' r='2' fill='%231FA3A3'/><circle cx='0' cy='9' r='2' fill='%23F2B01E'/><circle cx='36' cy='9' r='2' fill='%23F2B01E'/></svg>");
+  background-repeat:repeat-x; background-position:center;
+}
+
+/* hero */
+.hero{
+  background:
+    radial-gradient(900px 340px at 85% -10%, rgba(242,176,30,.35), transparent 60%),
+    radial-gradient(700px 300px at 0% 110%, rgba(31,163,163,.35), transparent 60%),
+    var(--indigo);
+  color:#fff; padding:44px 0 40px; text-align:center; position:relative;
+}
+.hero .tag{
+  display:inline-block; font-size:13px; letter-spacing:.06em; text-transform:uppercase;
+  padding:6px 14px; border-radius:999px; background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.28);
+}
+.hero h1{margin:16px 0 8px; font-size:clamp(28px,6vw,52px); line-height:1.1; font-weight:800}
+.hero h1 span{color:var(--saffron)}
+.hero p{margin:0 auto; max-width:640px; font-size:clamp(15px,2.4vw,18px); opacity:.92}
+.hero .meta{margin-top:18px; display:flex; flex-wrap:wrap; gap:8px; justify-content:center}
+.chip{font-size:13px; padding:5px 12px; border-radius:999px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22)}
+
+/* ІЗДЕН жолағы */
+.izden{background:var(--card); border-bottom:1px solid var(--line)}
+.izden .wrap{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; padding-top:14px; padding-bottom:14px}
+.step{display:flex; align-items:center; gap:8px; font-size:13px; padding:6px 12px 6px 6px; border-radius:999px; background:#fff; border:1px solid var(--line)}
+.step b{width:26px; height:26px; border-radius:50%; display:grid; place-items:center; color:#fff; font-size:13px}
+.step:nth-child(1) b{background:var(--terra)} .step:nth-child(2) b{background:var(--indigo)}
+.step:nth-child(3) b{background:var(--turq)} .step:nth-child(4) b{background:var(--saffron); color:var(--ink)}
+.step:nth-child(5) b{background:var(--maroon)}
+
+section{padding:34px 0 6px}
+.sec-head{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin-bottom:6px}
+.sec-head h2{margin:0; font-size:clamp(21px,4vw,28px); color:var(--maroon)}
+.sec-head small{color:#6b5a4f; font-size:14px}
+.sec-sub{margin:0 0 16px; color:#5b4a40}
+
+.grid{display:grid; gap:14px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{
+  background:var(--card); border:1px solid var(--line); border-radius:18px; padding:18px;
+  display:flex; flex-direction:column; gap:10px; position:relative; overflow:hidden;
+  box-shadow:0 1px 0 rgba(0,0,0,.03), 0 8px 22px -14px rgba(122,31,43,.35);
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.card:hover{transform:translateY(-2px); box-shadow:0 12px 26px -12px rgba(122,31,43,.45)}
+.card::before{content:""; position:absolute; left:0; top:0; bottom:0; width:6px; background:var(--accent,var(--terra))}
+.badge{align-self:flex-start; font-size:12px; font-weight:700; padding:4px 10px; border-radius:999px; color:#fff; background:var(--accent,var(--terra))}
+.card h3{margin:0; font-size:18px; line-height:1.25}
+.card p{margin:0; color:#52443b; font-size:14.5px; flex:1}
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  min-height:46px; padding:10px 18px; border-radius:14px; text-decoration:none; font-weight:700; font-size:15px;
+  color:#fff; background:var(--accent,var(--terra)); border:0; cursor:pointer;
+  box-shadow:0 4px 0 rgba(0,0,0,.18); transition:transform .08s ease, box-shadow .08s ease;
+}
+.btn:active{transform:translateY(3px); box-shadow:0 1px 0 rgba(0,0,0,.18)}
+.btn.ghost{background:#fff; color:var(--ink); border:1.5px solid var(--line); box-shadow:none}
+.card.off{opacity:.62}
+.card.off .btn{background:#9a8f86; pointer-events:none; box-shadow:none}
+
+.a1{--accent:var(--terra)} .a2{--accent:var(--indigo)} .a3{--accent:var(--turq)}
+.a4{--accent:var(--maroon)} .a5{--accent:#B7791F} .a6{--accent:var(--coral)}
+
+/* бөлісу */
+.share{
+  margin:34px 0 8px; background:var(--indigo); color:#fff; border-radius:22px; padding:22px;
+  display:flex; flex-wrap:wrap; gap:14px; align-items:center; justify-content:space-between;
+}
+.share h3{margin:0 0 4px; font-size:19px}
+.share p{margin:0; opacity:.85; font-size:14px}
+.share .row{display:flex; gap:8px; flex-wrap:wrap}
+.share input{
+  min-width:0; flex:1 1 260px; padding:12px 14px; border-radius:12px; border:0; font-size:14px; background:#fff; color:var(--ink);
+}
+.share .btn{--accent:var(--saffron); color:var(--ink)}
+
+footer{padding:26px 0 40px; text-align:center; color:#6b5a4f; font-size:13px}
+.toast{
+  position:fixed; left:50%; bottom:22px; transform:translate(-50%,30px); opacity:0;
+  background:var(--ink); color:#fff; padding:10px 16px; border-radius:12px; font-size:14px; transition:.25s; pointer-events:none;
+}
+.toast.show{opacity:1; transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important; scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="tag">Шебер сынып · 60 минут</span>
+    <h1>Google-дан <span>табылмайтын</span> физика</h1>
+    <p>Симуляциялар, станция карточкалары мен нұсқаулықтар бір жерде. Төмендегі батырмалар арқылы қажетті материалды ашыңыз.</p>
+    <div class="meta">
+      <span class="chip">Еркін түсу · 9.2.1.9</span>
+      <span class="chip">Шеңбер бойымен қозғалыс · 9.2.1.13–14</span>
+      <span class="chip">9-сынып</span>
+    </div>
+  </div>
+</header>
+<div class="orn" aria-hidden="true"></div>
+
+<nav class="izden" aria-label="ІЗДЕН әдісі">
+  <div class="wrap">
+    <span class="step"><b>І</b>Ілгек</span>
+    <span class="step"><b>З</b>Зерде болжамы</span>
+    <span class="step"><b>Д</b>Дерек</span>
+    <span class="step"><b>Е</b>Екшеу</span>
+    <span class="step"><b>Н</b>Нәтижені тасымалдау</span>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <section id="stations">
+    <div class="sec-head"><h2>Станциялар: симуляциялар</h2><small>әр станцияда 4 минут</small></div>
+    <p class="sec-sub">Телефонды жатты бағытта ұстаңыз. 3D суретті бір саусақпен айналдыруға, екі саусақпен жақындатуға болады.</p>
+    <div class="grid" id="grid-stations"></div>
+  </section>
+
+  <section id="bike">
+    <div class="sec-head"><h2>Техникалық блок: «Велосипедші»</h2><small>жүргізуші ортақ экранда көрсетеді</small></div>
+    <div class="grid" id="grid-bike"></div>
+  </section>
+
+  <section id="docs">
+    <div class="sec-head"><h2>Құжаттар мен нұсқаулықтар</h2></div>
+    <div class="grid" id="grid-docs"></div>
+  </section>
+
+  <section id="extra">
+    <div class="sec-head"><h2>Интерактивтер</h2><small>психологиялық ахуал және рефлексия</small></div>
+    <div class="grid" id="grid-extra"></div>
+  </section>
+
+  <div class="share">
+    <div>
+      <h3>Осы бетті әріптестерге жіберіңіз</h3>
+      <p>Сілтемені көшіріп, чатқа салыңыз.</p>
+    </div>
+    <div class="row" style="flex:1 1 420px">
+      <input id="pageUrl" readonly aria-label="Бет сілтемесі">
+      <button class="btn" id="copyBtn" type="button">Көшіру</button>
+    </div>
+  </div>
+</main>
+
+<div class="orn" aria-hidden="true"></div>
+<footer>
+  <div class="wrap">Жауап — Google-да. Ал сұрақ қойып, ойлануға үйрететін — Сіз, ұстаз!</div>
+</footer>
+<div class="toast" id="toast" role="status">Көшірілді</div>
+
+<script>
+/* =====================================================================
+   CONFIG — осы жерді ғана өзгертіңіз
+   url        : сілтеме. Файл осы репозиторийде болса, тек файл атын жазыңыз
+                (регистр маңызды: бас және кіші әріптер GitHub-тағыдай болсын).
+   Сыртқы сілтеме болса, толық https://... жазыңыз.
+   url бос ("") болса, карточка сұр болып «Жақында» деп тұрады.
+   ===================================================================== */
+const CONFIG = {
+
+  /* ---- 1. Станциялар (файлдар репозиторийде тұр) ---- */
+  stations: [
+    { badge:"1А · Еркін түсу", cls:"a1",
+      title:"Реакция және тежеу жолы",
+      text:"Екі көлік, бір жылдамдық. Бірінің жүргізушісі жолға, екіншісі телефонға қарайды. Тежеу жолы мен жалпы жолды салыстырыңыз.",
+      url:"1A_reakciya_zhane_tezheu.html", btn:"Станцияны ашу" },
+    { badge:"1Б · Еркін түсу", cls:"a2",
+      title:"Түсетін дене",
+      text:"Жер, Ай және Юпитер. Тамшы мен болат шар. Ауа кедергісін қосып-өшіріп, v(t) графигін зерттеңіз.",
+      url:"1B_tusetin_dene.html", btn:"Станцияны ашу" },
+    { badge:"2А · Шеңбер бойымен қозғалыс", cls:"a3",
+      title:"Айналмалы платформа",
+      text:"Карусельдегі екі бала. Секундомермен период өлшеп, ω мен v есептеңіз, «Тексеру» арқылы салыстырыңыз.",
+      url:"2A_ainalmaly_platforma.html", btn:"Станцияны ашу" },
+    { badge:"2Б · Шеңбер бойымен қозғалыс", cls:"a4",
+      title:"Жер қозғалысы",
+      text:"Жердің өз осінен және Күнді айналуы. Ендік бойынша жылдамдықты салыстырыңыз: v = ωR.",
+      url:"2B_zher_kozgaly.html", btn:"Станцияны ашу" }
+  ],
+
+  /* ---- 2. Велосипедші (сыртқы сілтеме) ---- */
+  bike: [
+    { badge:"Техникалық блок", cls:"a5",
+      title:"Велосипедші",
+      text:"Дөңгелек диаметрі, жол түрі, педаль күші және v = ωR байланысы. Жүргізуші ортақ экранда көрсетеді, сіз өз құрылғыңызда қайталай аласыз.",
+      /* >>>>>>>>>>  ВЕЛОСИПЕДШІ СІЛТЕМЕСІН ОСЫ ЖЕРГЕ ҚОЙЫҢЫЗ  <<<<<<<<<< */
+      url:"https://kelsiserasyl-hue.github.io/tehcimulyaciya/",
+      /* ^ егер басқа сілтеме болса, тырнақшаның ішіндегіні ауыстырыңыз */
+      btn:"Велосипедшіні ашу", external:true }
+  ],
+
+  /* ---- 3. Құжаттар ---- */
+  docs: [
+    { badge:"Карточкалар", cls:"a6",
+      title:"Станция карточкалары",
+      text:"Төрт станцияның қағаз карточкалары: алдыңғы беті мен кілті. Баспаға шығаруға дайын.",
+      url:"stanciya_kartochkalary.docx", btn:"Жүктеп алу", download:true },
+    { badge:"Нұсқаулық", cls:"a2",
+      title:"Симуляциялармен жұмыс нұсқаулығы",
+      text:"Симуляцияны қалай ашу, батырмалар не істейді, өз симуляцияңызды қалай жасау керек.",
+      url:"cimulyaciyalarmen_zhumys.pdf", btn:"PDF ашу" },
+    { badge:"Промпт", cls:"a3",
+      title:"Claude промпт шаблоны",
+      text:"Өз тақырыбыңызға интерактив симуляция жасау үшін шаблон. Квадрат жақшадағы жерлерді ауыстырасыз.",
+      /* >>>>>>>>>>  ФАЙЛДЫҢ ТОЛЫҚ АТЫН ГИТХАБТАН КӨШІРІП ҚОЙЫҢЫЗ (мысалы Claude_prompt_interaktiv_simulyaciya_Izden.docx)  <<<<<<<<<< */
+      url:"Claude_prompt_interaktiv_simulyaciya_Izden.docx", btn:"Жүктеп алу", download:true }
+  ],
+
+  /* ---- 4. Интерактивтер (болса, толтырыңыз; бос болса, карточка «Жақында» болады) ---- */
+  extra: [
+    { badge:"Психологиялық ахуал", cls:"a1",
+      title:"Ортақ шаңырақ",
+      text:"15 пазл, әр пазлда жеке хабарлама. Барлығы ашылғанда шаңырақ жиналады.",
+      url:"", btn:"Ашу" },
+    { badge:"Рефлексия", cls:"a4",
+      title:"Білім капсуласы",
+      text:"Капсуланы басып, бес сұраққа жауап беріңіз. Соңында капсула Жерді айналады.",
+      url:"", btn:"Ашу" }
+  ]
+};
+
+/* ============================ ТӨМЕНДЕ ӨЗГЕРТПЕҢІЗ ============================ */
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function render(id, items){
+  const root=document.getElementById(id);
+  root.innerHTML = items.map(it=>{
+    const ready = it.url && it.url.trim() !== "";
+    const attrs = ready
+      ? `href="${esc(it.url)}" ${it.external || /^https?:/.test(it.url) ? 'target="_blank" rel="noopener"' : 'target="_blank" rel="noopener"'} ${it.download?'download':''}`
+      : 'aria-disabled="true"';
+    return `<article class="card ${esc(it.cls||'a1')} ${ready?'':'off'}">
+      <span class="badge">${esc(it.badge||'')}</span>
+      <h3>${esc(it.title)}</h3>
+      <p>${esc(it.text)}</p>
+      <a class="btn" ${attrs}>${ready?esc(it.btn||'Ашу'):'Жақында'}</a>
+    </article>`;
+  }).join("");
+  if(!items.length) root.closest('section').style.display='none';
+}
+render("grid-stations", CONFIG.stations);
+render("grid-bike", CONFIG.bike);
+render("grid-docs", CONFIG.docs);
+render("grid-extra", CONFIG.extra);
+
+const input=document.getElementById("pageUrl");
+input.value=location.href.split("#")[0];
+document.getElementById("copyBtn").addEventListener("click",async()=>{
+  try{ await navigator.clipboard.writeText(input.value); }
+  catch(e){ input.select(); document.execCommand("copy"); }
+  const t=document.getElementById("toast"); t.classList.add("show"); setTimeout(()=>t.classList.remove("show"),1600);
+});
+</script>
+</body>
+</html>
