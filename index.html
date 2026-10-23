@@ -159,11 +159,6 @@ footer{padding:26px 0 40px; text-align:center; color:#6b5a4f; font-size:13px}
     <div class="grid" id="grid-docs"></div>
   </section>
 
-  <section id="extra">
-    <div class="sec-head"><h2>Интерактивтер</h2><small>психологиялық ахуал және рефлексия</small></div>
-    <div class="grid" id="grid-extra"></div>
-  </section>
-
   <div class="share">
     <div>
       <h3>Осы бетті әріптестерге жіберіңіз</h3>
@@ -236,20 +231,7 @@ const CONFIG = {
     { badge:"Промпт", cls:"a3",
       title:"Claude промпт шаблоны",
       text:"Өз тақырыбыңызға интерактив симуляция жасау үшін шаблон. Квадрат жақшадағы жерлерді ауыстырасыз.",
-      /* >>>>>>>>>>  ФАЙЛДЫҢ ТОЛЫҚ АТЫН ГИТХАБТАН КӨШІРІП ҚОЙЫҢЫЗ (мысалы Claude_prompt_interaktiv_simulyaciya_Izden.docx)  <<<<<<<<<< */
       url:"Claude_prompt_interaktiv_simulyaciya_Izden.docx", btn:"Жүктеп алу", download:true }
-  ],
-
-  /* ---- 4. Интерактивтер (болса, толтырыңыз; бос болса, карточка «Жақында» болады) ---- */
-  extra: [
-    { badge:"Психологиялық ахуал", cls:"a1",
-      title:"Ортақ шаңырақ",
-      text:"15 пазл, әр пазлда жеке хабарлама. Барлығы ашылғанда шаңырақ жиналады.",
-      url:"", btn:"Ашу" },
-    { badge:"Рефлексия", cls:"a4",
-      title:"Білім капсуласы",
-      text:"Капсуланы басып, бес сұраққа жауап беріңіз. Соңында капсула Жерді айналады.",
-      url:"", btn:"Ашу" }
   ]
 };
 
@@ -274,7 +256,6 @@ function render(id, items){
 render("grid-stations", CONFIG.stations);
 render("grid-bike", CONFIG.bike);
 render("grid-docs", CONFIG.docs);
-render("grid-extra", CONFIG.extra);
 
 const input=document.getElementById("pageUrl");
 input.value=location.href.split("#")[0];
